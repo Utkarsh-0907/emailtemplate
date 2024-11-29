@@ -1,38 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import EmailForm from "./components/EmailForm";
 import EmailPreview from "./components/EmailPreview";
 
 function App() {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-  const [date, setDate] = useState(""); 
+  const [formType, setFormType] = useState("jobSelection");
+  const [employeeName, setEmployeeName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [effectiveDate, setEffectiveDate] = useState("");
+  const [lastDate, setLastDate] = useState("");
+
+  const generateMessage = () => {
+    const messageTemplate =
+       `Dear ${employeeName || "Employee Name"},\n\n
+I am writing to inform you about the ${formType || "Resignation"} process at ${
+            companyName || "Company Name"
+          }.\n\n
+Your effective date will be ${
+            effectiveDate || "Effective Date"
+          } and your last working day will be ${lastDate || "Last Date"}.\n\n
+Best regards,\nUtkarsh Gandhi`;
+        
+
+    return messageTemplate;
+  };
+
+  const handleFieldChange = (field) => (e) => {
+    switch (field) {
+      case "employeeName":
+        setEmployeeName(e.target.value);
+        break;
+      case "companyName":
+        setCompanyName(e.target.value);
+        break;
+      case "effectiveDate":
+        setEffectiveDate(e.target.value);
+        break;
+      case "lastDate":
+        setLastDate(e.target.value);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="App" style={{ padding: "20px" }}>
       <h1>Email Template Generator</h1>
 
       <EmailForm
-        name={name}
-        address={address}
-        subject={subject}
-        message={message}
-        date={date} 
-        onNameChange={(e) => setName(e.target.value)}
-        onAddressChange={(e) => setAddress(e.target.value)}
-        onSubjectChange={(e) => setSubject(e.target.value)}
-        onMessageChange={(e) => setMessage(e.target.value)}
-        onDateChange={(e) => setDate(e.target.value)} 
+        formType={formType}
+        employeeName={employeeName}
+        companyName={companyName}
+        effectiveDate={effectiveDate}
+        lastDate={lastDate}
+        onFormTypeChange={(e) => setFormType(e.target.value)}
+        onFieldChange={handleFieldChange}
       />
 
       <EmailPreview
-        name={name}
-        address={address}
-        subject={subject}
-        message={message}
-        date={date} 
+        formType={formType}
+        employeeName={employeeName}
+        companyName={companyName}
+        effectiveDate={effectiveDate}
+        lastDate={lastDate}
+        message={generateMessage()}
       />
     </div>
   );

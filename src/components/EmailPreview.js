@@ -1,23 +1,22 @@
 import React from "react";
 
-const EmailPreview = ({ name, address, subject, message, date }) => {
+const EmailPreview = ({
+  formType,
+  employeeName,
+  companyName,
+  effectiveDate,
+  lastDate,
+  message,
+}) => {
   const generateEmailContent = () => {
     return `
-      Subject: ${subject}
-
-      Hi ${name},
-
-      I hope this message finds you well!
-
-      Address: ${address}
-
-      Date: ${date}
-
+      Form Type: ${
+        formType === "jobSelection" ? "Job Selection" : "Resignation"
+      }
+    
       Message:
       ${message}
 
-      Best regards,
-      Your Name
     `;
   };
 

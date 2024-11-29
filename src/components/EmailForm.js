@@ -1,68 +1,58 @@
-import React from 'react';
+import React from "react";
+import InputField from "./InputField";
 
-const EmailForm = ({ name, address, subject, message, date, onNameChange, onAddressChange, onSubjectChange, onMessageChange, onDateChange }) => {
+const EmailForm = ({
+  formType,
+  employeeName,
+  companyName,
+  effectiveDate,
+  lastDate,
+  onFormTypeChange,
+  onFieldChange,
+}) => {
   return (
-    <div style={{ marginBottom: '20px' }}>
-      <label>
-        Name:
-        <input 
-          type="text" 
-          value={name} 
-          onChange={onNameChange} 
-          placeholder="Enter recipient's name"
-          style={{ marginLeft: '10px' }}
-        />
-      </label>
-
-      <div style={{ marginBottom: '20px' }}>
+    <div style={{ marginBottom: "20px" }}>
+      <div style={{ marginBottom: "20px" }}>
         <label>
-          Address:
-          <input 
-            type="text" 
-            value={address} 
-            onChange={onAddressChange} 
-            placeholder="Enter recipient's address"
-            style={{ marginLeft: '10px' }}
-          />
+          Form Type:
+          <select value={formType} onChange={onFormTypeChange}>
+            <option value="jobSelection">Job Selection</option>
+            <option value="resignation">Resignation</option>
+          </select>
         </label>
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label>
-          Subject:
-          <input 
-            type="text" 
-            value={subject} 
-            onChange={onSubjectChange} 
-            placeholder="Enter subject"
-            style={{ marginLeft: '10px' }}
-          />
-        </label>
-      </div>
+      <InputField
+        label="Employee Name"
+        type="text"
+        value={employeeName}
+        onChange={onFieldChange("employeeName")}
+        placeholder="Employee Name"
+      />
 
-      <div style={{ marginBottom: '20px' }}>
-        <label>
-          Message:
-          <textarea 
-            value={message} 
-            onChange={onMessageChange} 
-            placeholder="Enter your message"
-            style={{ marginLeft: '10px', width: '100%', height: '100px' }}
-          />
-        </label>
-      </div>
+      <InputField
+        label="Company Name"
+        type="text"
+        value={companyName}
+        onChange={onFieldChange("companyName")}
+        placeholder="Company Name"
+      />
 
-      <div style={{ marginBottom: '20px' }}>
-        <label>
-          Date:
-          <input 
-            type="date" 
-            value={date} 
-            onChange={onDateChange} 
-            style={{ marginLeft: '10px' }}
-          />
-        </label>
-      </div>
+      <InputField
+        label="Effective Date"
+        type="date"
+        value={effectiveDate}
+        onChange={onFieldChange("effectiveDate")}
+        placeholder="Effective Date"
+      />
+
+      <InputField
+        label="Last Date"
+        type="date"
+        value={lastDate}
+        onChange={onFieldChange("lastDate")}
+        placeholder="Last Date"
+      />
     </div>
   );
 };
